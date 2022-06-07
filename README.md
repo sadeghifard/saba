@@ -7,6 +7,7 @@ Spring MVC,
 Web Services,
 REST API,
 JSON,
+Lombok
 MAVEN,
 Tomcat,
 MS SQL Server
