@@ -1,13 +1,16 @@
 # saba
+**SKILLS:**
 Java 17,
 Spring Boot,
-Spring Security5,
+Spring Boot Devtools,
+Spring Security,
 Spring Data JPA,
-Spring MVC,
+Spring Web MVC,
 Web Services,
 REST API,
 JSON,
 Lombok
-MAVEN,
+Maven,
 Tomcat,
+Git,
 MS SQL Server
