@@ -1,9 +1,9 @@
 # saba
 **SKILLS:**
 Java 17,
-Spring Boot,
+Spring Boot 2.7,
 Spring Boot Devtools,
-Spring Security,
+Spring Security 5,
 Spring Data JPA,
 Spring Web MVC,
 Web Services,
