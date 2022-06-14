@@ -1,0 +1,42 @@
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+  xmlns:form="http://form"
+  xmlns:field="http://field">
+<header>
+	<title>Persons List</title>
+<link rel="stylesheet" 
+	  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
+	  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
+	  crossorigin="anonymous">
+</header>
+<body>
+	<div class="container">
+		<div class="row">
+			<table class="table table-striped table-bordered">
+				<thead class="table-dark">
+					<tr>
+						<th> company name</th>
+						<th> owner name </th>
+						<th> address </th>
+						<th> serial numner</th>
+						<th> station number</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr">
+					<tr th:each="person:${persons}">
+						<td th:text="${person.companyName}"/>
+						<td th:text="${person.ownerName}"/>
+						<td th:text="${person.address}"/>
+						<td th:text="${person.serialNum}"/>
+						<td th:text="${person.stationNum}"/>
+					</tr>
+					</tr>
+				</tbody>			
+			</table>
+		</div>
+	</div>
+</body>
+</html>

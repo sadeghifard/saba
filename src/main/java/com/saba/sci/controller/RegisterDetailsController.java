@@ -20,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/sci/")
+@RequestMapping("/sci")
 public class RegisterDetailsController {
 	private final RegisterDetailsService registerDetailsService;
 	private final UserService userService;
@@ -49,7 +49,7 @@ public class RegisterDetailsController {
 	
 	
 	@CrossOrigin
-	@PutMapping("/private/users/update")
+	@PutMapping("/private/users/update_2538")
 	public ResponseEntity<CustomerDetail> updateCustomerDetail(@RequestBody CustomerDetailImple customerDetailImple){
 		System.out.println(customerDetailImple);
 		CustomerDetail detail =  registerDetailsService.updateCustomerDetail(customerDetailImple);

@@ -176,6 +176,14 @@ public interface UserRepository extends JpaRepository<User, Long>{
 			+ "				u.token_id= a.id\r\n"
 			+ "			)\r\n" , nativeQuery = true)	
 	Optional<List<CustomerDetail>> getAllCustomersInfo();
+	
+	
+	@Query(value = "select u.* \r\n"
+			+ "from users u \r\n"
+			+ "join auth_token a \r\n"
+			+ "on(u.token_id = a.id) \r\n"
+			+ "where a.token_value = :tokenValue", nativeQuery = true)
+	Optional<User> getUserByTokenValue(@Param("tokenValue") String tokenValue);
 }
 
 

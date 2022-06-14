@@ -1,10 +1,13 @@
 package com.saba.sci.model;
 
+import java.util.Collection;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -24,6 +27,9 @@ public class Role {
 	private Long id;
 	
 	@Column(name = "role_name")
-	private String roleName;
+	private String name;
+	
+//	@ManyToMany(mappedBy = "roles")
+//    private Collection<User> users;
 
 }

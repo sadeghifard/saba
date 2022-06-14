@@ -7,12 +7,12 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.saba.sci.config.SabaUserDetails;
 import com.saba.sci.dto.CustomerDetail;
 import com.saba.sci.model.ContactInfo;
 import com.saba.sci.model.Customer;
 import com.saba.sci.model.User;
 import com.saba.sci.repository.UserRepository;
+import com.saba.sci.security.SabaUserDetails;
 
 import lombok.RequiredArgsConstructor;
 
@@ -73,6 +73,10 @@ public class UserService {
 		List<CustomerDetail> customerDetails = userRepository.getAllCustomersInfo().orElse(null);
 							
 		return customerDetails;
+	}
+	
+	public User getUserByTokenValue(String tokenValue) {
+		return userRepository.getUserByTokenValue(tokenValue).orElse(null);
 	}
 	
 

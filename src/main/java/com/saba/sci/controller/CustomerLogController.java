@@ -54,7 +54,7 @@ public class CustomerLogController {
 //	}
 	
 	@CrossOrigin
-	@GetMapping("/private/logs/{id}")
+	@GetMapping("/private/logs_2538/{id}")
 	public ResponseEntity<List<CustomerLog>> getCustomerLogByUserId(@PathVariable("id") Long id){
 		List<CustomerLog> customerLogs = customerLogService.getCustomerLogByUserId(id);
 		customerLogs = customerLogs.stream().filter(c -> c != null).collect(Collectors.toList());
@@ -69,7 +69,7 @@ public class CustomerLogController {
 	}
 	
 	@CrossOrigin
-	@PutMapping("/private/logs/{id}")
+	@PutMapping("/private/logs_2538/{id}")
 	public ResponseEntity<CustomerLog> updateLogs(@PathVariable("id") Long id, @RequestBody CustomerLog customerLog){
 		
 		CustomerLog existCustomerLog = customerLogService.update(id, customerLog);
@@ -81,7 +81,7 @@ public class CustomerLogController {
 	}
 	
 	@CrossOrigin
-	@PostMapping("/private/logs/{id}")
+	@PostMapping("/private/logs_2538/{id}")
 	public ResponseEntity<CustomerLog> saveLog(@PathVariable("id") Long id, @RequestBody CustomerLog customerLog){
 	    CustomerLog log =  customerLogService.save(id, customerLog);
 		return new ResponseEntity<CustomerLog>(log,HttpStatus.CREATED);
@@ -90,7 +90,7 @@ public class CustomerLogController {
 	
 	
 	@CrossOrigin
-	@DeleteMapping("/private/logs/{id}")
+	@DeleteMapping("/private/logs_2538/{id}")
 	public ResponseEntity<String> DeleteLog(@PathVariable("id") Long id) {
 		customerLogService.delete(id);
 		return new ResponseEntity("Log deleted", HttpStatus.OK);

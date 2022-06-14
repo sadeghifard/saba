@@ -1,9 +1,10 @@
 package com.saba.sci.service;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 
-//import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,8 +15,11 @@ import com.saba.sci.model.ContactInfo;
 import com.saba.sci.model.Customer;
 import com.saba.sci.model.CustomerInfo;
 import com.saba.sci.model.Registry;
+import com.saba.sci.model.Role;
 import com.saba.sci.model.Token;
 import com.saba.sci.model.User;
+import com.saba.sci.repository.RoleRepository;
+import com.saba.sci.utile.SabaPasswordEncoder;
 import com.saba.sci.utile.Utility;
 
 import lombok.RequiredArgsConstructor;
@@ -33,8 +37,9 @@ public class RegisterDetailsService {
 	private final TokenService tokenService;
 	private final CustomerInfoService customerInfoService;
 	private final RegistryService registryService;
+	private final RoleService roleService;
 	
-//	private final PasswordEncoder passwordEncoder;
+	private final PasswordEncoder passwordEncoder;
 	
 	public RegisterDetail save(RegisterDetail registerDetail) {
 		User existeuser = userService.getUserByUserName(registerDetail.getUserName());
@@ -66,10 +71,14 @@ public class RegisterDetailsService {
 			
 			User user = new User();
 			user.setCustomer(customer);
-			user.setUserName(registerDetail.getUserName());
-//			String passwordEncoded = passwordEncoder.encode(registerDetail.getCompanyName());
-			user.setPassword(registerDetail.getPassword());
+			user.setUserName(registerDetail.getUserName().strip());
+			String passwordEncoded = passwordEncoder.encode(registerDetail.getPassword().strip());
+			user.setPassword(passwordEncoded);
 			user.setRoleName("ADMIN");
+			
+			Role role = roleService.getRoleByName("ADMIN");
+			user.setRoles(Arrays.asList(role));
+			
 			
 			CustomerInfo customerInfo = new CustomerInfo();
 			customerInfo.setCustomer(customer);

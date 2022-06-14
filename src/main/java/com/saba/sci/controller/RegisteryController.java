@@ -26,7 +26,7 @@ public class RegisteryController {
 	private final RegistryService registryService;
 	
 	@CrossOrigin
-	@GetMapping("/private/reg/{id}")
+	@GetMapping("/private/reg_2538/{id}")
 	public ResponseEntity<List<Registry>> getRegisteryByUserId(@PathVariable("id") Long id){
 		List<Registry> registries =  registryService.getRegistryByUserId(id);
 		
@@ -39,7 +39,7 @@ public class RegisteryController {
 	
 	
 	@CrossOrigin
-	@PostMapping("/private/reg")
+	@PostMapping("/private/reg_2538")
 	public ResponseEntity<List<Registry>> saveRegistry(@RequestBody List<Registry> registries ){
 		List<Registry> existRegisterList =  registryService.saveAll(registries);
 
@@ -51,7 +51,7 @@ public class RegisteryController {
 	}
 	
 	@CrossOrigin
-	@PutMapping("/private/reg/{id}")
+	@PutMapping("/private/reg_2538/{id}")
 	public ResponseEntity<Registry> updateRegistry(@PathVariable("id") Long id, @RequestBody Registry registry) {
 		Registry existRegistery =  registryService.update(id, registry);
 		
