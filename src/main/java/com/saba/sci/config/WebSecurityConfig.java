@@ -42,32 +42,23 @@ import com.saba.sci.security.SecurityAuthenticationFilter;
 import com.saba.sci.security.UserDetailsServiceImpl;
 import com.saba.sci.utile.SabaPasswordEncoder;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	
-	@Autowired
 	@Qualifier("userDetailsService")
 	private UserDetailsService userDetailsService;
-	
-	@Autowired
 	private CustomAuthenticationProvider authProvider;
-	
-	@Autowired
 	private RESTAuthenticationFailureHandler authenticationFailureHandler;
-
-	@Autowired
 	private RESTAuthenticationSuccessHandler authenticationSuccessHandler;
-
-	@Autowired
 	private RESTLogoutSuccessHandler logoutSuccessHandler;
-	
-	@Autowired
 	private ServletContext servletContext;
-	
-	@Autowired
 	private SecurityAuthenticationFilter securityAuthenticationFilter;
 	
 	@Bean
@@ -116,7 +107,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
             
         http.exceptionHandling().accessDeniedPage(
 				AbstractBaseConstants.ACCESS_DENIED_PAGE);
-        .logout().logoutUrl("/sci/logout").invalidateHttpSession(true).permitAll(); 
+        http.logout().logoutUrl("/sci/logout").invalidateHttpSession(true).permitAll(); 
           
         http.formLogin()
 			.defaultSuccessUrl(
@@ -169,7 +160,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         authProvider.setPasswordEncoder(passwordEncoder());
         return authProvider;
     }
-   
-
 }
-
