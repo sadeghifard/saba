@@ -12,8 +12,8 @@
 	<artifactId>sci</artifactId>
 	<version>0.0.1</version>
 	<packaging>jar</packaging>
-	<name>SabaCustomersInfomation</name>
-	<description>Saba customers infomation</description>
+	<name>Saba</name>
+	<description>Saba</description>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>

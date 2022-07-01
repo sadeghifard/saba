@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 public class SabaUserDetails implements UserDetails {
 
     private final User user;
- 
+	
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<Role> roles = (List<Role>) user.getRoles();
@@ -26,14 +26,9 @@ public class SabaUserDetails implements UserDetails {
         for (Role role : roles) {
             authorities.add(new SimpleGrantedAuthority(role.getName()));
         }
-         System.out.println("\n=============== SabaUserDetails: " + authorities);
+         
         return authorities;
     }
-    
-//    @Override
-//    public Collection<? extends GrantedAuthority> getAuthorities() {
-//    	return Collections.singleton(new SimpleGrantedAuthority(user.getRoleName()));
-//    }
  
     @Override
     public String getPassword() {

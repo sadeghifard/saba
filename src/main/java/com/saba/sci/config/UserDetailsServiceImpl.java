@@ -28,16 +28,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 	  User user = userRepository.getUserByUserName(userName)
 			  .orElseThrow(() -> new UsernameNotFoundException("Could not find user"));
-	   
-//	  Set<Role> roles = user.getRoles();
-//	   List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-//       
-//       for (Role role : roles) {
-//           authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
-//       }
-       
-       
-	  		 
+
 	   return new SabaUserDetails(user);       
 	}
 

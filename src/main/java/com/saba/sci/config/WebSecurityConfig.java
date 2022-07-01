@@ -86,7 +86,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 			throws Exception {
 
 		auth.authenticationProvider(authProvider);
-		auth.inMemoryAuthentication().withUser("arash").password(passwordEncoder().encode("arash")).roles("ADMIN");
 		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 	}
 
@@ -94,45 +93,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	protected ProxyAuthenticationFilter proxyAuthenticationFilter() {
 		return new ProxyAuthenticationFilter();
 	}
-	
-	@Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Collections.singletonList("*"));
-        configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT", "DELETE"));
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }
 
-	
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.authenticationProvider(authenticationProvider());
-//        auth.inMemoryAuthentication().withUser("arash").password(passwordEncoder().encode("arash")).roles("ADMIN");
-//    }
-	
     @Override
     protected void configure(HttpSecurity http) throws Exception {
     	http.addFilterBefore(securityAuthenticationFilter, BasicAuthenticationFilter.class);
-//    	http.addFilterBefore(corsFilter, securityAuthenticationFilter.getClass());
     	http.csrf().disable();
     
     	http.headers().frameOptions().sameOrigin().disable();
-    	http.headers().addHeaderWriter(
-                new StaticHeadersWriter("Access-Control-Allow-Origin", "*"));
-   
-    	http.headers().addHeaderWriter(
-                new StaticHeadersWriter("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With"));
-    	
-    	http.headers().addHeaderWriter(
-                new StaticHeadersWriter("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT, OPTIONS, HEAD"));
-    	
-    	http.headers().addHeaderWriter(
-                new StaticHeadersWriter("Access-Control-Allow-Credentials", "true"));
-    	
-    	
-    	
+    	    	
     	http.sessionManagement()
 		.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
 		.sessionFixation().migrateSession().maximumSessions(20)
@@ -142,22 +110,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         	.httpBasic()
         	 .disable()
         	.authorizeRequests()
-            .antMatchers("/sci/registration", "/sci/login", "/sci/logout", "/sci/check", "/webjars/**").permitAll()
-            .antMatchers("/sci/private/**").hasAuthority("ADMIN");
-//            .antMatchers("/sci/private/**").hasRole("ADMIN"); 
+            .antMatchers("/", "/sci/registration", "/sci/login", "/sci/logout", "/sci/check").permitAll()
+            .antMatchers("/sci/private/**").hasAuthority("ADMIN")
+			.anyRequest().fullyAuthenticated();
             
         http.exceptionHandling().accessDeniedPage(
 				AbstractBaseConstants.ACCESS_DENIED_PAGE);
-        
-//        http.formLogin()
-//            .usernameParameter("userName").passwordParameter("password").permitAll()
-//            .and()
-//            .logout().logoutUrl("/sci/logout").invalidateHttpSession(true).permitAll(); 
+        .logout().logoutUrl("/sci/logout").invalidateHttpSession(true).permitAll(); 
           
         http.formLogin()
-			// .loginProcessingUrl(
-			// servletContext.getContextPath() + "dfsdfsdf" +
-			// AbstractBaseConstants.ROUTE_LOGIN_REST)
 			.defaultSuccessUrl(
 					servletContext.getContextPath()
 							+ AbstractBaseConstants.ROUTE_DASHBOARD,true)
@@ -165,7 +126,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 			.usernameParameter("userName")
 			.passwordParameter("password")
 			.successHandler(authenticationSuccessHandler)
-			// .failureUrl(BaseConstants.)
 			.failureHandler(authenticationFailureHandler)
 			.and()
 			.logout()
@@ -173,8 +133,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 			.deleteCookies("JSESSIONID", "SESSION")
 			.logoutUrl(AbstractBaseConstants.ROUTE_LOGOUT)
 			.logoutSuccessHandler(logoutSuccessHandler)
-			// .logoutSuccessUrl(AbstractBaseConstants.ROUTE_HOME)
-			.and().sessionManagement()
+			.and()
+			.sessionManagement()
 			.invalidSessionUrl(AbstractBaseConstants.ROUTE_ROOT)
 			.sessionFixation().changeSessionId().maximumSessions(1)
 			.expiredUrl(AbstractBaseConstants.ROUTE_ROOT);
@@ -201,11 +161,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
-//	 @Bean
-//	 public UserDetailsService userDetailsService() {
-//	        return new UserDetailsServiceImpl();
-//	}
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
